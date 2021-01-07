@@ -124,6 +124,31 @@ export default {
     timeText: {
         color: 'rgb(164, 184, 209)',
         fontSize: 13
+    },
+
+    participantsContainer: {
+        flex: 1,
+        backgroundColor: ColorPalette.blackBlue
+    },
+
+    indicatorIcon: {
+        fontSize: 32,
+        color: ColorPalette.white
+    },
+
+    thumbnailIndicatorContainer: {
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        alignSelf: 'stretch',
+        flex: 1,
+        flexDirection: 'row',
+        margin: 4,
+        padding: 4
+    },
+
+    displayNameText: {
+        color: ColorPalette.white,
+        fontSize: 14
     }
 };
 
