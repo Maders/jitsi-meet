@@ -9,8 +9,11 @@ import { BottomSheet, isDialogOpen } from '../../../base/dialog';
 import { KICK_OUT_ENABLED, getFeatureFlag } from '../../../base/flags';
 import { getParticipantDisplayName } from '../../../base/participants';
 import { connect } from '../../../base/redux';
+// eslint-disable-next-line import/order
 import { StyleType } from '../../../base/styles';
-import { PrivateMessageButton } from '../../../chat';
+
+// breaking import convension and consistancy to fix circular dependecy problem in chat
+import PrivateMessageButton from '../../../chat/components/PrivateMessageButton';
 import { hideRemoteVideoMenu } from '../../actions';
 
 import ConnectionStatusButton from './ConnectionStatusButton';

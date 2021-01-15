@@ -66,12 +66,16 @@
         "messagebox": "Type a message",
         "messageTo": "Private message to {{recipient}}",
         "noMessagesMessage": "There are no messages in the meeting yet. Start a conversation here!",
+        "noParticipantMessage": "There are no participant in the meeting yet. invite your friends!",
         "nickname": {
             "popover": "Choose a nickname",
             "title": "Enter a nickname to use chat"
         },
         "privateNotice": "Private message to {{recipient}}",
-        "title": "Chat",
+        "tabs": {
+            "chat": "Chat",
+            "participants": "Participants"
+        },
         "you": "you"
     },
     "chromeExtensionBanner": {
@@ -463,6 +467,7 @@
     "lockRoomPasswordUppercase": "Password",
     "me": "me",
     "notify": {
+        "currentParticipantCount": "currently {{count}} party in the call",
         "connectedOneMember": "{{name}} joined the meeting",
         "connectedThreePlusMembers": "{{name}} and {{count}} others joined the meeting",
         "connectedTwoMembers": "{{first}} and {{second}} joined the meeting",
