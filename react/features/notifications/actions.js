@@ -3,6 +3,8 @@
 import throttle from 'lodash/throttle';
 import type { Dispatch } from 'redux';
 
+import { getParticipantCount, getParticipantCountWithoutSpecificID } from '../base/participants';
+
 import {
     CLEAR_NOTIFICATIONS,
     HIDE_NOTIFICATION,
@@ -174,3 +176,47 @@ export function showParticipantJoinedNotification(displayName: string) {
 
     return (dispatch: Dispatch<any>) => _throttledNotifyParticipantConnected(dispatch);
 }
+
+/**
+ * A throttled internal function that takes the participant cound and triggers the display of a
+ * notification informing of room counts.
+ *
+ * @private
+ * @type {Function}
+ */
+const _showParticipantCountNotification = throttle((count, dispatch) => {
+    const notificationProps = {
+        titleArguments: { count },
+        titleKey: 'notify.currentParticipantCount',
+        appearance: -2
+    };
+
+    dispatch(showNotification(notificationProps, NOTIFICATION_TIMEOUT));
+}, 1000, {
+    leading: false
+});
+
+export const PARTICIPANT_COUNT_TYPE = {
+    joined: 'joined',
+    left: 'left'
+};
+
+/**
+ *  Trigger throttled version participant count notification.
+ *
+ * @param {Object} type - The type of source of calle, joined used for participant join and left for participant left.
+ * @param {Object} participant - The participant data (id required).
+ * @returns {Function}
+ */
+export const showParticipantCountNotification = (
+        type = PARTICIPANT_COUNT_TYPE.joined,
+        participant
+) => (dispatch, getState) => {
+    const state = getState();
+    const count
+        = type === PARTICIPANT_COUNT_TYPE.joined
+            ? getParticipantCount(state)
+            : getParticipantCountWithoutSpecificID(state, participant.id);
+
+    return _showParticipantCountNotification(count, dispatch);
+};

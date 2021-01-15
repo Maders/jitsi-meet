@@ -14,7 +14,8 @@ import { MiddlewareRegistry, StateListenerRegistry } from '../base/redux';
 import {
     clearNotifications,
     showNotification,
-    showParticipantJoinedNotification
+    showParticipantJoinedNotification,
+    showParticipantCountNotification, PARTICIPANT_COUNT_TYPE
 } from './actions';
 import { NOTIFICATION_TIMEOUT } from './constants';
 import { joinLeaveNotificationsDisabled } from './functions';
@@ -38,6 +39,7 @@ MiddlewareRegistry.register(store => next => action => {
             dispatch(showParticipantJoinedNotification(
                 getParticipantDisplayName(getState, p.id)
             ));
+            dispatch(showParticipantCountNotification(PARTICIPANT_COUNT_TYPE.joined));
         }
 
         if (typeof interfaceConfig === 'object'
@@ -57,16 +59,19 @@ MiddlewareRegistry.register(store => next => action => {
         return result;
     }
     case PARTICIPANT_LEFT: {
+        const { dispatch, getState } = store;
+
         if (!joinLeaveNotificationsDisabled()) {
+            dispatch(showParticipantCountNotification(PARTICIPANT_COUNT_TYPE.left, action.participant));
             const participant = getParticipantById(
-                store.getState(),
+                getState(),
                 action.participant.id
             );
 
             if (typeof interfaceConfig === 'object'
                 && participant
                 && !participant.local) {
-                store.dispatch(showNotification({
+                dispatch(showNotification({
                     descriptionKey: 'notify.disconnected',
                     titleKey: 'notify.somebody',
                     title: participant.name

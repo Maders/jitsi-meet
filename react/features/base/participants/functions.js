@@ -400,3 +400,14 @@ async function _getFirstLoadableAvatarUrl(participant, store) {
 
     return undefined;
 }
+
+
+// eslint-disable-next-line require-jsdoc
+export function getParticipantWithoutSpecificID(stateful: Object | Function, PID: string) {
+    return getParticipants(stateful).filter(p => p.id !== PID);
+}
+
+// eslint-disable-next-line require-jsdoc
+export function getParticipantCountWithoutSpecificID(stateful: Object | Function, PID: string) {
+    return getParticipantWithoutSpecificID(stateful, PID).length;
+}
