@@ -69,6 +69,8 @@ buck-out/
 *.framework
 android/app/debug
 android/app/release
+android/app/src/main/res
+android/app/src/main/assets
 ios/sdk/out
 
 # precommit-hook
